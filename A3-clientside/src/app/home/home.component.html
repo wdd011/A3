@@ -6,7 +6,7 @@
 <div class="fundraisers">
   <h1>Thousands are fundraising online on HopeChain</h1>
   <div class="content" id="fundraisers">
-    <div class="fundraiser-card" id="fundraiser-card">
+    <div class="fundraiser-card" id="fundraiser-card" *ngFor="let data of dataList">
       <img [src]="images[data.FUNDRAISER_ID - 1]" alt="" />
       <div class="title">{{ data.CAPTION }}</div>
       <div class="details">
