@@ -1,0 +1,44 @@
+.footer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.footer .content {
+  padding-top: 60px;
+  padding-bottom: 30px;
+  width: 1200px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.footer .content ul {
+  display: flex;
+  flex-direction: column;
+}
+.footer .content ul li {
+  margin-top: 16px;
+  color: #9c3353;
+  font-size: 14px;
+  font-family: AvenirLTPro-Book;
+}
+.footer .content ul li:nth-child(1) {
+  font-size: 15px;
+  color: #212121;
+  position: relative;
+  display: block;
+}
+
+.footer .text {
+  width: 100%;
+  line-height: 51px;
+  height: 51px;
+  background: #212121;
+  margin-bottom: 0;
+  color: #fff;
+  font-size: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

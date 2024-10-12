@@ -11,7 +11,7 @@ export interface Fundraiser {
   CITY: string // 城市
   ACTIVE: number // 是否激活
   CATEGORY_ID: number // 类别 ID
-  DESCRIPTION: string // 描述
+  INTRO: string // 描述
   CATEGORY_NAME: string // 类别名称
 }
 
@@ -24,5 +24,10 @@ export class FundraisersService {
   // 获取筹款活动
   fetchFundraisers(): Observable<Fundraiser[]> {
     return this.service.get<Fundraiser[]>(environment.apiUrl + '/fundraisers')
+  }
+
+  // 获取筹款活动详情
+  fetchFundraiserDetails(id: number): Observable<Fundraiser> {
+    return this.service.get<Fundraiser>(environment.apiUrl + '/fundraiser/' + id)
   }
 }
