@@ -4,6 +4,7 @@ import { HeaderComponent } from '../shared/header/header.component'
 import { BannerComponent } from '../shared/banner/banner.component'
 import { Fundraiser, FundraisersService } from '../services/fundraisers.service'
 import { CommonModule } from '@angular/common'
+import { Route, Router } from '@angular/router'
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,7 @@ import { CommonModule } from '@angular/common'
   styleUrl: './home.component.css',
 })
 export class HomeComponent implements OnInit {
-  constructor(private service: FundraisersService) {}
+  constructor(private service: FundraisersService, private router: Router) {}
   images: string[] = ['assets/img/dog.jpg', 'assets/img/yuhan.jpg', 'assets/img/yang.jpg', 'assets/img/shui.jpg', 'assets/img/dog2.jpg']
   dataList: Fundraiser[] = []
 
@@ -26,5 +27,10 @@ export class HomeComponent implements OnInit {
     this.service.fetchFundraisers().subscribe(res => {
       this.dataList = res
     })
+  }
+
+  // 跳转
+  to(url: Route['path'], id: number) {
+    this.router.navigate([url], { queryParams: { id } })
   }
 }
