@@ -5,7 +5,40 @@
 <!-- 列表 -->
 <div class="fundraisers">
   <h1>Thousands are fundraising online on HopeChain</h1>
-  <div class="content" id="fundraisers"></div>
+  <div class="content" id="fundraisers">
+    <div class="fundraiser-card" id="fundraiser-card">
+      <img [src]="images[data.FUNDRAISER_ID - 1]" alt="" />
+      <div class="title">{{ data.CAPTION }}</div>
+      <div class="details">
+        <div class="group">
+          <div>City:</div>
+          <div>{{ data.CITY }}</div>
+        </div>
+        <div class="group">
+          <div>Organizer:</div>
+          <div>{{ data.ORGANIZER }}</div>
+        </div>
+        <div class="group">
+          <div>Category:</div>
+          <div>{{ data.CATEGORY_NAME }}</div>
+        </div>
+        <div class="group">
+          <div>Current funds:</div>
+          <div>{{ data.CURRENT_FUNDING }}</div>
+        </div>
+        <div class="group">
+          <div>Target financing:</div>
+          <div>{{ data.TARGET_FUNDING }}</div>
+        </div>
+        <div class="group">
+          <div>Active:</div>
+          <a [class]="{ hRed: data.ACTIVE === 0 }">
+            {{ data.ACTIVE === 0 ? 'Inactive' : 'Active' }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
   <a class="goFundraisers" href="./fundraiser.html">See more fundraisers?</a>
 </div>
 <!-- 卡片 -->
