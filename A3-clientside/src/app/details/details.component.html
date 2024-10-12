@@ -1,0 +1,36 @@
+<app-header></app-header>
+<div class="details" *ngIf="detailInfo">
+  <div class="details-content" id="details">
+    <div class="container">
+      <img [src]="images[detailInfo.FUNDRAISER_ID - 1]" alt="Fundraiser Image" />
+      <h1 id="title">{{ detailInfo.CAPTION }}</h1>
+      <div class="details">
+        <p>
+          <strong>ORGANIZER:</strong> <span id="organizer">{{ detailInfo.ORGANIZER }}</span>
+        </p>
+        <p>
+          <strong>TARGET FUNDING:</strong> <span id="targetFunding">{{ detailInfo.TARGET_FUNDING }}</span>
+        </p>
+        <p>
+          <strong>CURRENT FUNDING:</strong> <span id="currentFunding">{{ detailInfo.CURRENT_FUNDING }}</span>
+        </p>
+        <p>
+          <strong>CITY:</strong> <span id="city">{{ detailInfo.CITY }}</span>
+        </p>
+        <p>
+          <strong>CATEGORY:</strong> <span id="eventStatus">{{ detailInfo.CATEGORY_NAME }}</span>
+        </p>
+        <p>
+          <strong>ACTIVE:</strong>
+          <span id="category" [ngClass]="{ hRed: detailInfo.ACTIVE === 0 }">{{ detailInfo.ACTIVE === 0 ? 'Inactive' : 'Active' }}</span>
+        </p>
+      </div>
+      <a href="#" class="button" (click)="to('donate')">Donate</a>
+      <div class="description">
+        {{ detailInfo.INTRO }}
+      </div>
+      <div class="donateButton"></div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>
