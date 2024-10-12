@@ -17,7 +17,7 @@ export class HeaderComponent implements OnInit {
   pathTitle: Route['title'] = undefined
 
   ngOnInit(): void {
-    this.routes = routes
+    this.routes = routes.filter(item => !item.data || !item.data['menus'])
     this.pathTitle = this.route.routeConfig?.title
   }
 
