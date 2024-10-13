@@ -35,7 +35,7 @@ export interface FormFundraiser {
 })
 export class FundraisersService {
   constructor(private service: HttpClient) {}
-  apiUrl: string = 'http://localhost:3002'
+  apiUrl: string = 'https://24275060.it.scu.edu.au'
 
   // 获取筹款活动
   fetchFundraisers(): Observable<Fundraiser[]> {

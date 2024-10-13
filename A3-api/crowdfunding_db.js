@@ -13,9 +13,9 @@ app.use(cors())
 // 配置数据库信息
 const db = mysql.createConnection({
   host: 'localhost', // IP
-  user: 'root', // 用户名
-  password: '123456', // 密码
-  database: 'crowdfunding_db2', // 数据库名称
+  user: 'cwang36', // 用户名
+  password: 'Wdd@24275060', // 密码
+  database: 'cwang36_web_A3_Chenshouwang', // 数据库名称
 })
 db.connect(err => {
   if (err) {

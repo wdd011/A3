@@ -12,7 +12,7 @@ export interface Category {
 })
 export class CategoryService {
   constructor(private service: HttpClient) {}
-  apiUrl: string = 'http://localhost:3002'
+  apiUrl: string = 'https://24275060.it.scu.edu.au'
 
   fetchCategory(): Observable<Category[]> {
     return this.service.get<Category[]>(this.apiUrl + '/categories')
