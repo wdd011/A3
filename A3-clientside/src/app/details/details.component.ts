@@ -27,7 +27,7 @@ export class DetailsComponent implements OnInit {
     })
   }
   // 跳转
-  to(url: Route['path']) {
-    this.router.navigate([url])
+  to(url: Route['path'], id: number) {
+    this.router.navigate([url], { queryParams: { id } })
   }
 }

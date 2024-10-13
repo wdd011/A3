@@ -3,15 +3,15 @@ import { Injectable } from '@angular/core'
 import { environment } from '../environments/environment'
 import { Observable } from 'rxjs'
 
-interface Donor {
+export interface Donor {
   GIVER: string
   AMOUNT: number
+  FUNDRAISER_ID: number
 }
 
-interface Donation extends Donor {
+export interface Donation extends Donor {
   DONATION_ID: number
   DATE: string
-  FUNDRAISER_ID: number
 }
 
 @Injectable({
