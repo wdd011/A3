@@ -1,0 +1,54 @@
+.search {
+  margin-top: 60px;
+  width: 1200px;
+}
+.search .form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.search .form form {
+  width: 100%;
+}
+
+.search .form form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+.search .btn {
+  width: 300px;
+  gap: 32px;
+  justify-content: flex-end !important;
+}
+.search .content {
+  margin-top: 32px;
+}
+.search .form .details {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+.search .details .group {
+  width: 100%;
+  display: grid;
+  align-items: center;
+  grid-template-columns: 1fr 61%;
+  gap: 16px;
+}
+.search .details .group label {
+  width: 100%;
+  text-align: end;
+}
+
+.search .details input,
+.search .details select {
+  width: 100%;
+  height: 40px;
+}
+
+.height300 {
+  height: 300px;
+}
