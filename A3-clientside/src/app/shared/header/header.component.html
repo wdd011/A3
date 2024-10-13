@@ -1,7 +1,9 @@
 <div class="header">
-  <a class="title" href="./index.html">HopeChain</a>
+  <div class="title" (click)="to('')">HopeChain</div>
   <div id="nav">
-    <a *ngFor="let item of routes; let i = index" href="#" [class]="{ active: item.title === pathTitle }" (click)="to(item.path)">{{ item.title }}</a>
+    <div class="nav-path" *ngFor="let item of routes; let i = index" [class]="{ active: item.title === pathTitle }" (click)="to(item.path)">
+      {{ item.title }}
+    </div>
   </div>
-  <div class="login">Login</div>
+  <div class="login">Welcome!</div>
 </div>
