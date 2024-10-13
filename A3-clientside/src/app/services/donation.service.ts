@@ -12,6 +12,7 @@ export interface Donor {
 export interface Donation extends Donor {
   DONATION_ID: number
   DATE: string
+  dateStr: string
 }
 
 @Injectable({
@@ -22,5 +23,10 @@ export class DonationService {
 
   addDonor(data: Donor): Observable<{ message: string }> {
     return this.service.post<{ message: string }>(environment.apiUrl + '/donation', data)
+  }
+
+  // 根据fundraisers id 获取信息
+  fetchDonations(id: number): Observable<Donation[]> {
+    return this.service.get<Donation[]>(environment.apiUrl + '/donations', { params: { id } })
   }
 }

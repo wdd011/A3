@@ -4,7 +4,7 @@ import { HeaderComponent } from '../shared/header/header.component'
 import { FooterComponent } from '../shared/footer/footer.component'
 import { ActivatedRoute, Route, Router } from '@angular/router'
 import { Fundraiser, FundraisersService } from '../services/fundraisers.service'
-import { Donation } from '../services/donation.service'
+import { Donation, DonationService } from '../services/donation.service'
 
 @Component({
   selector: 'app-details',
@@ -14,17 +14,22 @@ import { Donation } from '../services/donation.service'
   styleUrl: './details.component.css',
 })
 export class DetailsComponent implements OnInit {
-  constructor(private service: FundraisersService, private router: Router, private route: ActivatedRoute) {}
+  constructor(private service: FundraisersService, private donationService: DonationService, private router: Router, private route: ActivatedRoute) {}
   images: string[] = ['assets/img/dog.jpg', 'assets/img/yuhan.jpg', 'assets/img/yang.jpg', 'assets/img/shui.jpg', 'assets/img/dog2.jpg']
   detailInfo: Fundraiser | undefined = undefined
   donates: Donation[] = []
   ngOnInit(): void {
     this.getDetailInfo()
+    this.getDonationsInfo()
   }
   getDetailInfo() {
     this.service.fetchFundraiserDetails(this.route.snapshot.queryParams['id']).subscribe(res => {
-      console.log(res)
       this.detailInfo = res
+    })
+  }
+  getDonationsInfo() {
+    this.donationService.fetchDonations(this.route.snapshot.queryParams['id']).subscribe(res => {
+      this.donates = res
     })
   }
   // 跳转

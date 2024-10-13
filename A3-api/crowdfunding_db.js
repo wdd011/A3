@@ -107,7 +107,6 @@ app.get('/search', (req, res) => {
 // 查询详情
 app.get('/fundraiser/:id', (req, res) => {
   const fundraiserId = req.params.id
-
   //  fundraisers 表中选择所有列
   // c.NAME AS CATEGORY_NAME: 查询categories表 把NAME重命名CATEGORY_NAME
   const query = `
@@ -122,6 +121,27 @@ app.get('/fundraiser/:id', (req, res) => {
     } else {
       // 返回符合条件的
       res.json(results[0])
+    }
+  })
+})
+
+// 查询 捐赠列表
+app.get('/donations', (req, res) => {
+  const fundraiserId = req.query.id
+  const query = `
+    SELECT  
+      DONATION_ID, 
+      DATE_FORMAT(DATE, '%Y-%m-%d %H:%i:%s') AS dateStr, 
+      AMOUNT, 
+      GIVER, 
+      FUNDRAISER_ID  
+    FROM donation WHERE FUNDRAISER_ID = ? ORDER BY DATE DESC;
+  `
+  db.query(query, [fundraiserId], (err, results) => {
+    if (err) {
+      res.status(500).json({ message: '服务端错误' })
+    } else {
+      res.json(results)
     }
   })
 })
@@ -145,7 +165,7 @@ app.post('/donation', (req, res) => {
     return res.status(400).json({ error: 'parameter error' })
   }
 
-  // 使用事务更新fundraiser表CURRENT_FUNDING
+  // 使用事务需要同时更新fundraiser表CURRENT_FUNDING
   db.beginTransaction(err => {
     if (err) res.status(500).json({ error: err.message })
     const query = `
@@ -158,6 +178,8 @@ app.post('/donation', (req, res) => {
           res.status(500).json({ error: err.message })
         })
       }
+
+      // 更新fundraisers表sql
       const updateQuery = `
         UPDATE fundraisers
         SET CURRENT_FUNDING = CURRENT_FUNDING + ?
@@ -169,6 +191,7 @@ app.post('/donation', (req, res) => {
             res.status(500).json({ error: err.message })
           })
         }
+        // 提交
         db.commit(err => {
           if (err) {
             return db.rollback(() => {

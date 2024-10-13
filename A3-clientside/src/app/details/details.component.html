@@ -39,10 +39,10 @@
               <div class="list-item" *ngFor="let item of donates">
                 <div class="via">s</div>
                 <div class="item-info">
-                  <p class="name">Yash</p>
+                  <p class="name">{{ item.GIVER }}</p>
                   <div class="yuan">
-                    <div>Aud 100</div>
-                    <div>2024-12-12 23:12:11</div>
+                    <div>Aud {{ item.AMOUNT }}</div>
+                    <div>{{ item.dateStr }}</div>
                   </div>
                 </div>
               </div>
