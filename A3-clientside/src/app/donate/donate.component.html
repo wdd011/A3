@@ -2,10 +2,10 @@
 <div class="donate-form">
   <div class="donate-content" id="donate">
     <div class="card">
-      <img src="assets/img/shui.jpg" alt="" />
+      <img [src]="fundraiserInfo?.IMAGES" alt="" />
       <div class="info">
         <div class="tip">Choose your donation amount for</div>
-        <h3 class="title">Urgent Appeal: Support for Utsab Basu’s Critical Treatment</h3>
+        <h3 class="title">{{ fundraiserInfo?.CAPTION }}</h3>
       </div>
     </div>
     <div class="user-money">

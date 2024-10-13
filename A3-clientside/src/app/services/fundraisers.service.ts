@@ -13,6 +13,7 @@ export interface Fundraiser {
   CATEGORY_ID: number // 类别 ID
   INTRO: string // 描述
   CATEGORY_NAME: string // 类别名称
+  IMAGES: string
 }
 
 @Injectable({

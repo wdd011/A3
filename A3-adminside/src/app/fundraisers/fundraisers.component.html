@@ -12,7 +12,7 @@
     <section>
       <div>
         <h2>All Fundraisers</h2>
-        <button (click)="openModal()" class="action-button">+ Add New Fundraiser</button>
+        <button (click)="openModal()" class="action-button">Add New Fundraiser</button>
       </div>
       <table>
         <thead>
@@ -57,6 +57,19 @@
     <form #form="ngForm" (ngSubmit)="submit(form)">
       <input type="hidden" id="fundraiserId" name="fundraiserId" [(ngModel)]="currentFundraiser.FUNDRAISER_ID" />
       <div>
+        <label for="images">Upload Image:</label>
+        <div class="uploadImage">
+          <div class="baseMap">
+            <img [src]="imageBase64" />
+            <div class="txt" *ngIf="!imageBase64">点击上传图片</div>
+          </div>
+          <input type="file" id="image" name="images" class="file-input" required (change)="onFileSelected($event)" />
+        </div>
+        <div class="hRed">
+          <small *ngIf="imagesType">Images is required.</small>
+        </div>
+      </div>
+      <div>
         <label for="organizer">Organizer:</label>
         <input type="text" id="organizer" name="organizer" required [(ngModel)]="currentFundraiser.ORGANIZER" />
         <div class="hRed" *ngIf="form.controls['organizer']?.invalid && (form.controls['organizer']?.touched || form.submitted)">
@@ -75,13 +88,6 @@
         <input type="number" step="0.01" id="targetFunding" name="targetFunding" required [(ngModel)]="currentFundraiser.TARGET_FUNDING" />
         <div class="hRed" *ngIf="form.controls['targetFunding']?.invalid && (form.controls['targetFunding']?.touched || form.submitted)">
           <small *ngIf="form.controls['targetFunding']?.errors?.['required']">Target Funding is required.</small>
-        </div>
-      </div>
-      <div>
-        <label for="currentFunding">Current Funding:</label>
-        <input type="number" step="1" id="currentFunding" name="currentFunding" value="0.00" required [(ngModel)]="currentFundraiser.CURRENT_FUNDING" />
-        <div class="hRed" *ngIf="form.controls['currentFunding']?.invalid && (form.controls['currentFunding']?.touched || form.submitted)">
-          <small *ngIf="form.controls['currentFunding']?.errors?.['required']">Current Funding is required.</small>
         </div>
       </div>
       <div>

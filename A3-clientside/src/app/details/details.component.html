@@ -6,7 +6,7 @@
         <div class="card-left">
           <div class="banner-tag">HopeChain will not charge any fee on your donation to this fundraiser.</div>
           <h1 id="title">{{ detailInfo.CAPTION }}</h1>
-          <img [src]="images[detailInfo.FUNDRAISER_ID - 1]" alt="Fundraiser Image" />
+          <img [src]="detailInfo.IMAGES" alt="Fundraiser Image" />
           <div class="details-info">
             <p>
               <strong>Fundraiser ID:</strong> <span id="FUNDRAISER_ID">{{ detailInfo.FUNDRAISER_ID }}</span>
@@ -51,10 +51,8 @@
           </div>
         </div>
       </div>
-      <div class="button" (click)="to('donate', detailInfo.FUNDRAISER_ID)">Donate</div>
-      <div class="description">
-        {{ detailInfo.INTRO }}
-      </div>
+      <div class="button" (click)="to('donate', detailInfo.FUNDRAISER_ID)" style="margin-bottom: 32px">Donate</div>
+      <div class="description" [innerHTML]="detailInfo.INTRO"></div>
       <div class="donateButton"></div>
     </div>
   </div>

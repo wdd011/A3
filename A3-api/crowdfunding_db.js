@@ -1,11 +1,13 @@
 const express = require('express')
 const mysql = require('mysql2')
 const cors = require('cors')
+const bodyParser = require('body-parser')
 const app = express()
 // 端口号
 const PORT = 3002
 // 解析
-app.use(express.json())
+app.use(bodyParser.json({ limit: '2mb' }))
+app.use(bodyParser.urlencoded({ limit: '10mb', extended: true }))
 // 解决跨域问题
 app.use(cors())
 // 配置数据库信息
@@ -149,9 +151,9 @@ app.get('/donations', (req, res) => {
 // 删除筹款活动
 app.delete('/fundraisers/:id', (req, res) => {
   if (req.params.id === null || req.params.id === undefined) res.status(401).json({ error: 'ID 为必传项' })
-  db.query('DELETE FROM fundraisers WHERE id = ?;', [req.params.id], (err, results) => {
-    if (err) res.status(500).json({ error: '服务端错误' })
-    res.json({ message: 'successfully delete' })
+  db.query('DELETE FROM fundraisers WHERE FUNDRAISER_ID = ?;', [req.params.id], (err, results) => {
+    if (err) res.status(500).json({ error: err.message })
+    res.status(200).json({ message: 'successfully delete' })
   })
 })
 
@@ -206,11 +208,22 @@ app.post('/donation', (req, res) => {
 })
 // 新增筹款活动
 app.post('/fundraisers', (req, res) => {
-  const { organizer, caption, targetFunding, currentFunding, city, active, intro } = req.body
-  const sql = `INSERT INTO fundraisers (ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, INTRO) VALUES (?, ?, ?, ?, ?, ?, ?)`
-  db.query(sql, [organizer, caption, targetFunding, currentFunding, city, active, intro], (err, result) => {
-    if (err) return res.status(500).json({ error: err, message })
+  const { images, organizer, caption, targetFunding, category, city, active, intro } = req.body
+  const sql = `INSERT INTO fundraisers (IMAGES,ORGANIZER, CAPTION, TARGET_FUNDING, CATEGORY_ID, CITY, ACTIVE, INTRO) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`
+  db.query(sql, [images, organizer, caption, targetFunding, category, city, active, intro], (err, result) => {
+    if (err) return res.status(500).json({ error: err.message })
     res.status(201).json({ message: 'New success！' })
+  })
+})
+
+// 更新筹款活动
+app.put('/fundraisers/:id', (req, res) => {
+  const { id } = req.params
+  const { images, organizer, caption, targetFunding, category, city, active, intro } = req.body
+  const sql = `UPDATE fundraisers SET IMAGES = ?, ORGANIZER = ?, CAPTION = ?, TARGET_FUNDING = ?, CATEGORY_ID = ?, CITY = ?, ACTIVE = ?, INTRO = ? WHERE FUNDRAISER_ID = ?`
+  db.query(sql, [images, organizer, caption, targetFunding, category, city, active, intro, id], (err, result) => {
+    if (err) res.status(500).json({ error: err.message })
+    res.status(200).json({ message: 'updated successfully' })
   })
 })
 

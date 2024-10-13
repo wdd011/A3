@@ -13,6 +13,7 @@ export interface Fundraiser {
   CATEGORY_ID: number // 类别 ID
   INTRO: string // 描述
   CATEGORY_NAME: string // 类别名称
+  IMAGES: string //图片
 }
 
 export interface FormFundraiser {
@@ -26,6 +27,7 @@ export interface FormFundraiser {
   CATEGORY_ID: number | null
   INTRO: string | null
   CATEGORY_NAME: string | null
+  IMAGES: null | string
 }
 
 @Injectable({
@@ -54,8 +56,13 @@ export class FundraisersService {
     return this.service.get<Fundraiser[]>(this.apiUrl + '/search', { params: data })
   }
 
-  //删除
+  // 删除
   deleteFundraisers(id: number): Observable<{ message: string }> {
     return this.service.delete<{ message: string }>(this.apiUrl + '/fundraisers/' + id)
+  }
+
+  // 更新
+  updateFundraisers(data: any): Observable<{ message: string }> {
+    return this.service.put<{ message: string }>(this.apiUrl + '/fundraisers/' + data.fundraiserId, data)
   }
 }

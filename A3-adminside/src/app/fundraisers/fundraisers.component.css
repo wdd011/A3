@@ -75,7 +75,7 @@
 
 .modal-content {
   background-color: #fff;
-  margin: 5% auto;
+  margin: 10% auto;
   padding: 20px;
   border-radius: 8px;
   width: 40%;
@@ -112,4 +112,46 @@
 }
 #radio-group label {
   margin-top: 6px;
+}
+
+/* 上传图片样式 */
+.uploadImage {
+  margin-top: 10px;
+  position: relative;
+  width: auto;
+  height: 90px;
+}
+.uploadImage .file-input {
+  position: absolute;
+  z-index: 11;
+  /* background-color: transparent !important; */
+  width: 120px;
+  height: 80px;
+  opacity: 0;
+  cursor: pointer;
+}
+.baseMap {
+  position: absolute;
+  z-index: 10;
+  width: 120px;
+  height: 80px;
+  background-color: #f0f0f0;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+}
+.baseMap .txt {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  height: 100%;
+  width: 100%;
+  opacity: 0.5;
+}
+.uploadImage img {
+  position: absolute;
+  z-index: 10;
+  height: 100%;
 }
