@@ -25,7 +25,7 @@
           <span id="category" [ngClass]="{ hRed: detailInfo.ACTIVE === 0 }">{{ detailInfo.ACTIVE === 0 ? 'Inactive' : 'Active' }}</span>
         </p>
       </div>
-      <a href="#" class="button" (click)="to('donate')">Donate</a>
+      <div class="button" (click)="to('donate')">Donate</div>
       <div class="description">
         {{ detailInfo.INTRO }}
       </div>
