@@ -2,28 +2,54 @@
 <div class="details" *ngIf="detailInfo">
   <div class="details-content" id="details">
     <div class="container">
-      <img [src]="images[detailInfo.FUNDRAISER_ID - 1]" alt="Fundraiser Image" />
-      <h1 id="title">{{ detailInfo.CAPTION }}</h1>
-      <div class="details">
-        <p>
-          <strong>ORGANIZER:</strong> <span id="organizer">{{ detailInfo.ORGANIZER }}</span>
-        </p>
-        <p>
-          <strong>TARGET FUNDING:</strong> <span id="targetFunding">{{ detailInfo.TARGET_FUNDING }}</span>
-        </p>
-        <p>
-          <strong>CURRENT FUNDING:</strong> <span id="currentFunding">{{ detailInfo.CURRENT_FUNDING }}</span>
-        </p>
-        <p>
-          <strong>CITY:</strong> <span id="city">{{ detailInfo.CITY }}</span>
-        </p>
-        <p>
-          <strong>CATEGORY:</strong> <span id="eventStatus">{{ detailInfo.CATEGORY_NAME }}</span>
-        </p>
-        <p>
-          <strong>ACTIVE:</strong>
-          <span id="category" [ngClass]="{ hRed: detailInfo.ACTIVE === 0 }">{{ detailInfo.ACTIVE === 0 ? 'Inactive' : 'Active' }}</span>
-        </p>
+      <div class="details-card">
+        <div class="card-left">
+          <div class="banner-tag">HopeChain will not charge any fee on your donation to this fundraiser.</div>
+          <h1 id="title">{{ detailInfo.CAPTION }}</h1>
+          <img [src]="images[detailInfo.FUNDRAISER_ID - 1]" alt="Fundraiser Image" />
+          <div class="details-info">
+            <p>
+              <strong>Fundraiser ID:</strong> <span id="FUNDRAISER_ID">{{ detailInfo.FUNDRAISER_ID }}</span>
+            </p>
+            <p>
+              <strong>Organizer:</strong> <span id="organizer">{{ detailInfo.ORGANIZER }}</span>
+            </p>
+            <p>
+              <strong>Target Funding:</strong> <span id="targetFunding">{{ detailInfo.TARGET_FUNDING }}</span>
+            </p>
+            <p>
+              <strong>Current Funding:</strong> <span id="currentFunding">{{ detailInfo.CURRENT_FUNDING }}</span>
+            </p>
+            <p>
+              <strong>City:</strong> <span id="city">{{ detailInfo.CITY }}</span>
+            </p>
+            <p>
+              <strong>Category Name:</strong> <span id="eventStatus">{{ detailInfo.CATEGORY_NAME }}</span>
+            </p>
+            <p>
+              <strong>Active state:</strong>
+              <span id="category" [ngClass]="{ hRed: detailInfo.ACTIVE === 0 }">{{ detailInfo.ACTIVE === 0 ? 'Inactive' : 'Active' }}</span>
+            </p>
+          </div>
+        </div>
+        <div class="card-right">
+          <div class="card-card">
+            <h3>Supporters</h3>
+            <div class="card-list">
+              <div class="list-item" *ngFor="let item of donates">
+                <div class="via">s</div>
+                <div class="item-info">
+                  <p class="name">Yash</p>
+                  <div class="yuan">
+                    <div>Aud 100</div>
+                    <div>2024-12-12 23:12:11</div>
+                  </div>
+                </div>
+              </div>
+              <div class="no-donations" *ngIf="donates.length === 0">No one has donated yet ！</div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="button" (click)="to('donate', detailInfo.FUNDRAISER_ID)">Donate</div>
       <div class="description">
