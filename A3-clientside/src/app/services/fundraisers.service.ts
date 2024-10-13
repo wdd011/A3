@@ -30,4 +30,9 @@ export class FundraisersService {
   fetchFundraiserDetails(id: number): Observable<Fundraiser> {
     return this.service.get<Fundraiser>(environment.apiUrl + '/fundraiser/' + id)
   }
+
+  // 搜索筹款活动
+  search(data: Partial<Fundraiser>): Observable<Fundraiser[]> {
+    return this.service.get<Fundraiser[]>(environment.apiUrl + '/search', { params: data })
+  }
 }

@@ -1,10 +1,11 @@
-import { CommonModule } from '@angular/common'
-import { Component } from '@angular/core'
+import { CommonModule, Location } from '@angular/common'
+import { Component, OnInit } from '@angular/core'
 import { FormsModule } from '@angular/forms'
 import { DonationService, Donor } from '../services/donation.service'
 import { ActivatedRoute } from '@angular/router'
 import { HeaderComponent } from '../shared/header/header.component'
 import { FooterComponent } from '../shared/footer/footer.component'
+import { Fundraiser, FundraisersService } from '../services/fundraisers.service'
 
 @Component({
   selector: 'app-donate',
@@ -13,18 +14,22 @@ import { FooterComponent } from '../shared/footer/footer.component'
   templateUrl: './donate.component.html',
   styleUrl: './donate.component.css',
 })
-export class DonateComponent {
-  constructor(private service: DonationService, private route: ActivatedRoute) {}
+export class DonateComponent implements OnInit {
+  constructor(private service: DonationService, private fundraiserService: FundraisersService, private route: ActivatedRoute, private location: Location) {}
   donation: number = 0 // 初始化捐款金额
   donorName: string = '' // 捐赠者姓名
+  fundraiserInfo: Fundraiser | null = null
+  ngOnInit(): void {
+    this.fundraiserService.fetchFundraiserDetails(this.route.snapshot.queryParams['id']).subscribe(res => {
+      this.fundraiserInfo = res
+    })
+  }
   submitDonation() {
     if (this.donation < 5) {
       alert('The minimum donation is AUD 5')
       return
     }
     if (this.donorName === '') return
-    console.log('Donation Amount:', this.donation.toFixed(2))
-    console.log('Donor Name:', this.donorName)
     const data: Donor = {
       GIVER: this.donorName,
       AMOUNT: this.donation,
@@ -32,7 +37,8 @@ export class DonateComponent {
     }
     if (data.FUNDRAISER_ID === null || data.FUNDRAISER_ID === undefined) return alert('Page error, return to try again')
     this.service.addDonor(data).subscribe(res => {
-      alert('Thank you for your donation to [fundraiser_name]')
+      alert('Thank you for your donation to ' + this.fundraiserInfo?.ORGANIZER)
+      this.location.back()
     })
   }
 }

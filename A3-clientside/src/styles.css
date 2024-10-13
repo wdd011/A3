@@ -28,7 +28,7 @@ body {
 .fundraisers {
   width: 1200px;
   margin: 0 auto;
-  margin-top: 120px !important;
+  margin-top: 20px !important;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -102,6 +102,7 @@ body {
   max-height: 66px;
 }
 .fundraiser-card .details .group {
+  width: 100%;
   display: grid;
   grid-template-columns: 40% 60%;
 }
@@ -182,17 +183,6 @@ li {
   margin: 0; /* 可选：去掉li的外边距 */
 }
 
-.search {
-  margin-top: 60px;
-  width: 1200px;
-}
-.search .form {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
 .Nothing {
   width: 100%;
   display: flex;
@@ -201,20 +191,7 @@ li {
   font-size: 32px;
   font-weight: 900;
 }
-.search .form div {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 32px;
-}
-.search .btn {
-  width: 300px;
-  gap: 32px;
-  justify-content: flex-end !important;
-}
-.search .content {
-  margin-top: 32px;
-}
+
 option[value=''][disabled] {
   display: none; /* 隐藏该选项 */
 }
@@ -225,29 +202,19 @@ input {
   border: 1px solid #5d5d5d;
   border-radius: 8px;
 }
-
-.details {
-  width: 1200px;
-  margin: 0 auto;
-}
-.details .details-content {
-  margin-top: 140px;
-}
-.details .details-content .container {
-  width: 100%;
+.flex-center {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.details .details-content .container img {
-  width: 60%;
+.\!flex-center {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
-
-.details .details-content .container .details {
-  display: flex;
-  gap: 32px;
-  flex-wrap: wrap;
+.details {
+  width: 1200px;
+  margin: 0 auto;
 }
 
 .donate-form {
