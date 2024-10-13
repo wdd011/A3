@@ -1,0 +1,126 @@
+<div class="admin-container">
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <h2>Admin Side</h2>
+    </div>
+    <ul>
+      <li><a href="#" class="active">Fundraisers</a></li>
+    </ul>
+  </div>
+  <div class="main-content">
+    <header></header>
+    <section>
+      <div>
+        <h2>All Fundraisers</h2>
+        <button (click)="openModal()" class="action-button">+ Add New Fundraiser</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>FUNDRAISER ID</th>
+            <th>Organizer</th>
+            <th>Caption</th>
+            <th>Target Funding</th>
+            <th>Current Funding</th>
+            <th>City</th>
+            <th>Category</th>
+            <th>Active</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="table">
+          <tr *ngFor="let item of fundraisers">
+            <td>{{ item.FUNDRAISER_ID }}</td>
+            <td>{{ item.ORGANIZER }}</td>
+            <td>{{ item.CAPTION }}</td>
+            <td>{{ item.TARGET_FUNDING }}</td>
+            <td>{{ item.CURRENT_FUNDING }}</td>
+            <td>{{ item.CATEGORY_NAME }}</td>
+            <td>{{ item.CITY }}</td>
+            <td>{{ item.ACTIVE ? 'Active' : 'Inactive' }}</td>
+            <td style="display: flex; gap: 16px">
+              <button class="action-button" (click)="openModal(item)">Edit</button>
+              <button class="cancel-button" (click)="openDeleteModal(item.FUNDRAISER_ID)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal" *ngIf="isVisible">
+  <div class="modal-content">
+    <span class="close-button" (click)="closeModal()">&times;</span>
+    <h2 id="modal-title">{{ currentFundraiser ? 'Edit Fundraiser' : 'Create Fundraiser' }}</h2>
+    <form #form="ngForm" (ngSubmit)="submit(form)">
+      <input type="hidden" id="fundraiserId" name="fundraiserId" [(ngModel)]="currentFundraiser.FUNDRAISER_ID" />
+      <div>
+        <label for="organizer">Organizer:</label>
+        <input type="text" id="organizer" name="organizer" required [(ngModel)]="currentFundraiser.ORGANIZER" />
+        <div class="hRed" *ngIf="form.controls['organizer']?.invalid && (form.controls['organizer']?.touched || form.submitted)">
+          <small *ngIf="form.controls['organizer']?.errors?.['required']">Organizer is required.</small>
+        </div>
+      </div>
+      <div>
+        <label for="caption">Caption:</label>
+        <input type="text" id="caption" name="caption" required pattern=".{1,255}" [(ngModel)]="currentFundraiser.CAPTION" />
+        <div class="hRed" *ngIf="form.controls['caption']?.invalid && (form.controls['caption']?.touched || form.submitted)">
+          <small *ngIf="form.controls['caption']?.errors?.['required']">Caption is required.</small>
+        </div>
+      </div>
+      <div>
+        <label for="targetFunding">Target Funding:</label>
+        <input type="number" step="0.01" id="targetFunding" name="targetFunding" required [(ngModel)]="currentFundraiser.TARGET_FUNDING" />
+        <div class="hRed" *ngIf="form.controls['targetFunding']?.invalid && (form.controls['targetFunding']?.touched || form.submitted)">
+          <small *ngIf="form.controls['targetFunding']?.errors?.['required']">Target Funding is required.</small>
+        </div>
+      </div>
+      <div>
+        <label for="currentFunding">Current Funding:</label>
+        <input type="number" step="1" id="currentFunding" name="currentFunding" value="0.00" required [(ngModel)]="currentFundraiser.CURRENT_FUNDING" />
+        <div class="hRed" *ngIf="form.controls['currentFunding']?.invalid && (form.controls['currentFunding']?.touched || form.submitted)">
+          <small *ngIf="form.controls['currentFunding']?.errors?.['required']">Current Funding is required.</small>
+        </div>
+      </div>
+      <div>
+        <label for="CATEGORY_ID">Category:</label>
+        <select id="category" name="category" [(ngModel)]="currentFundraiser.CATEGORY_ID" required>
+          <option *ngFor="let item of categories" [ngValue]="item.CATEGORY_ID">{{ item.NAME }}</option>
+        </select>
+        <div class="hRed" *ngIf="form.controls['category']?.invalid && (form.controls['category']?.touched || form.submitted)">
+          <small *ngIf="form.controls['category']?.errors?.['required']">Category is required.</small>
+        </div>
+      </div>
+      <div>
+        <label for="city">City:</label>
+        <input type="text" id="city" name="city" required [(ngModel)]="currentFundraiser.CITY" />
+        <div class="hRed" *ngIf="form.controls['city']?.invalid && (form.controls['city']?.touched || form.submitted)">
+          <small *ngIf="form.controls['city']?.errors?.['required']">City is required.</small>
+        </div>
+      </div>
+      <div>
+        <label for="active">Active:</label>
+        <div id="radio-group">
+          <div>
+            <input type="radio" name="active" [value]="1" [(ngModel)]="currentFundraiser.ACTIVE" />
+            <label>Active</label>
+          </div>
+          <div>
+            <input type="radio" name="active" [value]="0" [(ngModel)]="currentFundraiser.ACTIVE" />
+            <label>Inactive</label>
+          </div>
+        </div>
+      </div>
+      <div>
+        <label for="intro">Intro:</label>
+        <textarea id="intro" name="intro" rows="8" [(ngModel)]="currentFundraiser.INTRO"></textarea>
+      </div>
+      <div class="submit-buts">
+        <button type="submit" id="saveButton">Save</button>
+        <button type="button" id="cancelButton" (click)="closeModal()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

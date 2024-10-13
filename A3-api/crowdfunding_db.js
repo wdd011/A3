@@ -147,11 +147,11 @@ app.get('/donations', (req, res) => {
 })
 
 // 删除筹款活动
-app.delete('/fundraiser/:id', (req, res) => {
+app.delete('/fundraisers/:id', (req, res) => {
   if (req.params.id === null || req.params.id === undefined) res.status(401).json({ error: 'ID 为必传项' })
   db.query('DELETE FROM fundraisers WHERE id = ?;', [req.params.id], (err, results) => {
     if (err) res.status(500).json({ error: '服务端错误' })
-    res.json(results)
+    res.json({ message: 'successfully delete' })
   })
 })
 
@@ -202,6 +202,15 @@ app.post('/donation', (req, res) => {
         })
       })
     })
+  })
+})
+// 新增筹款活动
+app.post('/fundraisers', (req, res) => {
+  const { organizer, caption, targetFunding, currentFunding, city, active, intro } = req.body
+  const sql = `INSERT INTO fundraisers (ORGANIZER, CAPTION, TARGET_FUNDING, CURRENT_FUNDING, CITY, ACTIVE, INTRO) VALUES (?, ?, ?, ?, ?, ?, ?)`
+  db.query(sql, [organizer, caption, targetFunding, currentFunding, city, active, intro], (err, result) => {
+    if (err) return res.status(500).json({ error: err, message })
+    res.status(201).json({ message: 'New success！' })
   })
 })
 
